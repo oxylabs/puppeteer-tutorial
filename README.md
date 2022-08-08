@@ -334,14 +334,3 @@ To get more detailed information, take a look at the official [Puppeteer documen
 
 
 
-
-
-
-
-
-
-
-
-
-
-
