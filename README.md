@@ -2,13 +2,13 @@
 ## Table of Contents 
 
 
-- [Controlling the browsers programmatically](controlling-the-browsers-programmatically)
-- [Installation](installation)
-- [Getting started with Puppeteer](getting-started-with-puppeteer)
-- [Scraping an element from a page](scraping-an-element-from-a-page)
-- [Scraping multiple elements](scraping-multiple-elements)
-- [Scraping a hotel listing page](scraping-a-hotel-listing-page)
-- [Summary](summary)
+- [Controlling the browsers programmatically](#controlling-the-browsers-programmatically)
+- [Installation](#installation)
+- [Getting started with Puppeteer](#getting-started-with-puppeteer)
+- [Scraping an element from a page](#scraping-an-element-from-a-page)
+- [Scraping multiple elements](#scraping-multiple-elements)
+- [Scraping a hotel listing page](#scraping-a-hotel-listing-page)
+- [Summary](#summary)
 
 ## Controlling the browsers programmatically
 
