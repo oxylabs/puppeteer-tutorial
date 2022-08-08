@@ -176,6 +176,9 @@ Now, go to the Console tab in the developer toolbox and write in this line:
 
 You will immediately see that our desired tag is extracted.
 
+![ZmJiMWIyNzAtYTg1Zi00ZGE2LTg4MDYtMmFlZmE3YjgyOWFj_puppeteer-tutorial](https://user-images.githubusercontent.com/110830803/183444884-1ac40d44-158d-4967-95bf-b9a2f8f13807.jpg)
+
+
 This returns one element from the page. For this particular element, all we need is text. Text can be easily extracted with this line of code:
 
 ```document.querySelector('#firstHeading').textContent```
@@ -284,6 +287,8 @@ The hotel name can be extracted by combining parentElement and nextElementSiblin
 The most important concept to understand here is that we are concatenating querySelectors. Effectively, the first hotel name is being extracted with this line of code:
 
 ```document.querySelectorAll("#FMP-target [itemprop='itemListElement']")[0].querySelector('ol').parentElement.nextElementSibling.textContent```
+
+![OWJiMjQ4OGItM2E4Yy00ZWFmLWE2NWItOTJlMmY1NDBkNjFm_puppeteer-tutorial2](https://user-images.githubusercontent.com/110830803/183445109-2d30173b-eb31-4f1b-8c60-a313ea7a9b1e.jpg)
 
 Finally, we can create an object containing both of these values. The syntax to create an object is like this:
 
