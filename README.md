@@ -35,7 +35,7 @@ main();
 ```
 Pyppeteer Example:
 
-```javascript
+```python
 import asyncio
 import pyppeteer
 async def main():
