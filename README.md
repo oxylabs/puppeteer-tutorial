@@ -22,7 +22,7 @@ The syntax is very similar as it uses the asyncio library for Python, except the
 
 Puppeteer example:
 
-```
+```javascript
 const puppeteer = require('puppeteer');
 async function main() {
   const browser = await puppeteer.launch();
@@ -85,7 +85,7 @@ Note that Puppeteer is bundled with a full instance of Chromium. When it is inst
 
 Create a new file in your node project directory (the directory that contains package.json and node_modules). Save this file as example1.js and add this code:
 
-```
+```javascript
 const puppeteer = require('puppeteer');
 async function main() {
     // Add code here
@@ -95,7 +95,7 @@ main();`
 
 The code above can be simplified by making the function anonymous and calling it on the same line:
 
-```
+```javascript
 const puppeteer = require('puppeteer');
 (async () => {
     // Add code here
@@ -104,27 +104,33 @@ const puppeteer = require('puppeteer');
 
 The required keyword will ensure that the Puppeteer library is available in the file. The rest of the lines are the placeholder where an anonymous, asynchronous function is being created and executed. For the next step, launch the browser. 
 
-```const browser = await puppeteer.launch();``` 
+```javascript
+const browser = await puppeteer.launch();
+``` 
 
 Note that by default, the browser is launched in the headless mode. If there is an explicit need for a user interface, the above line can be modified to include an object as a parameter. 
 
-```const browser = await puppeteer.launch({headless:false}); // default is true```
+```javascript
+const browser = await puppeteer.launch({headless:false}); // default is true```
 
 The next step would be to open a page:
 
-```const page = await browser.newPage();```
+```javascript
+const page = await browser.newPage();```
 
 Now that a page or in other words, a tab, is available, any website can be loaded by simply calling the goto() function:
 
-```await page.goto('https://oxylabs.io/');```
+```javascript
+await page.goto('https://oxylabs.io/');```
 
 Once the page is loaded, the DOM elements, as well the rendered page is available. This can be verified by taking a quick screenshot:
 
-```await page.screenshot({path: 'oxylabs_1080.png'})```
+```javascript
+await page.screenshot({path: 'oxylabs_1080.png'})```
 
 This, however, will create only an 800×600 pixel image. The reason is that Puppeteer sets an initial page size to 800×600px. This can be changed by setting the viewport, before taking the screenshot.
 
-```
+```javascript
   await page.setViewport({
     width: 1920,
     height: 1080,
@@ -133,11 +139,12 @@ This, however, will create only an 800×600 pixel image. The reason is that Pupp
 
 Finally, remember to close the browser:
 
-```await browser.close();```
+```javascript
+await browser.close();```
 
 Putting it altogether, here is the complete script. 
 
-```
+```javascript
 const puppeteer = require('puppeteer');
 (async () => {
   const browser = await puppeteer.launch();
@@ -160,7 +167,8 @@ This should create a new file oxylabs_1080.png in the same directory.
 
 **Bonus tip:** If you need a PDF, you can use the pdf() function:
 
-```await page.pdf({path: 'oxylabs.pdf', format: 'A4'});``` 
+```javascript
+await page.pdf({path: 'oxylabs.pdf', format: 'A4'});``` 
 
 ## Scraping an element from a page
 
@@ -172,7 +180,8 @@ Once the page is loaded, right-click the heading of the page, and select Inspect
 
 Now, go to the Console tab in the developer toolbox and write in this line:
 
-```document.querySelector('#firstHeading')```
+```javascript
+document.querySelector('#firstHeading')```
 
 You will immediately see that our desired tag is extracted.
 
@@ -181,11 +190,12 @@ You will immediately see that our desired tag is extracted.
 
 This returns one element from the page. For this particular element, all we need is text. Text can be easily extracted with this line of code:
 
-```document.querySelector('#firstHeading').textContent```
+```javascript
+document.querySelector('#firstHeading').textContent```
 
 The text can now be returned using the return keyword. The next step is to surround this in the evaluate method. This will ensure that this querySelector can be run. 
 
-```
+```javascript
 await page.evaluate(() => {
     return document.querySelector("#firstHeading").textContent;
 });
@@ -193,7 +203,7 @@ await page.evaluate(() => {
 
 The result of the evaluate() function can be stored in a variable to complete the functionality. Finally, do not forget to close the browser. Here is the complete script:
 
-```
+```javascript
 const puppeteer = require("puppeteer");
  
 (async () => {
@@ -215,19 +225,22 @@ Extracting multiple elements would involve three steps:
 
 1. Use of querySelectorAll to get all elements matching the selector:
 
-```headings_elements = document.querySelectorAll("h2 .mw-headline");```
+```javascript
+headings_elements = document.querySelectorAll("h2 .mw-headline");```
 
 2. create an array, as heading_elements is of type NodeList. 
 
-```headings_array = Array.from(headings_elements);```
+```javascript
+headings_array = Array.from(headings_elements);```
 
 3. Call the map() function can be called to process each element in the array and return it.
 
-```return headings_array.map(heading => heading.textContent);```
+```javascript
+return headings_array.map(heading => heading.textContent);```
 
 This of course needs to be surrounded by page.evaluate() function. Putting everything together, this is the complete script. You can save this as wiki_toc.js:
 
-```
+```javascript
 const puppeteer = require("puppeteer");
  
 (async () => {
@@ -251,7 +264,8 @@ This file can now be run from your terminal:
 
 **Bonus tip:** Array.from() function can be supplied with a map function directly, without a separate call to map. Depending on the comfort level, the same code can thus be written as:
 
-``` headings = await page.evaluate(() => {
+```javascript
+headings = await page.evaluate(() => {
     return Array.from(document.querySelectorAll("h2 .mw-headline"),
       heading => heading.innerText.trim());
   });
@@ -263,12 +277,13 @@ This section will explain how a typical listing page can be scraped to get a JSO
 
 The example that we will take is an Airbnb. Apply some filters so that you reach a page similar to the one in the screenprint. In this particular example, we will be scraping [this Airbnb page](https://www.airbnb.com/s/homes?refinement_paths%5B%5D=%2Fhomes&amp;search_type=section_navigation&amp;property_type_id%5B%5D=8) that lists 20 hotels. To scrape all 20 hotels, the first step is to identify the selector for each hotel section.
 
-```root = Array.from(document.querySelectorAll("#FMP-target [itemprop='itemListElement']"));```
+```javascript
+root = Array.from(document.querySelectorAll("#FMP-target [itemprop='itemListElement']"));```
 
 This returns a NodeList of length 20 and stores in the variable root. Note that so far, text or any attribute has not been extracted. All we have is an array  of elements. This will be done in the map() function.
 
 
-```
+```javascript
 hotels = root.map(hotel => ({ 
 // code here
 }));
@@ -276,23 +291,26 @@ hotels = root.map(hotel => ({
 
 The URL of the photo of the hotel can be extracted with a code like this:
 
-```hotel.querySelector("img").getAttribute("src")```
+```javascript
+hotel.querySelector("img").getAttribute("src")```
 
 Getting the name of the hotel is a little trickier. The classes used on this page are some random words like _krjbj and _mvzr1f2. These class names appear to be generated dynamically and may change later on. It is better to have selectors which do not rely on these class names. 
 
 The hotel name can be extracted by combining parentElement and nextElementSibling selectors:
 
-```hotel.querySelector('ol').parentElement.nextElementSibling.textContent```
+```javascript
+hotel.querySelector('ol').parentElement.nextElementSibling.textContent```
 
 The most important concept to understand here is that we are concatenating querySelectors. Effectively, the first hotel name is being extracted with this line of code:
 
-```document.querySelectorAll("#FMP-target [itemprop='itemListElement']")[0].querySelector('ol').parentElement.nextElementSibling.textContent```
+```javascript
+document.querySelectorAll("#FMP-target [itemprop='itemListElement']")[0].querySelector('ol').parentElement.nextElementSibling.textContent```
 
 ![OWJiMjQ4OGItM2E4Yy00ZWFmLWE2NWItOTJlMmY1NDBkNjFm_puppeteer-tutorial2](https://user-images.githubusercontent.com/110830803/183445109-2d30173b-eb31-4f1b-8c60-a313ea7a9b1e.jpg)
 
 Finally, we can create an object containing both of these values. The syntax to create an object is like this:
 
-```
+```javascript
 Hotel = {
         Name: 'x',
         Photo: 'y'
@@ -301,7 +319,7 @@ Hotel = {
 
 Putting everything together, here is the final script. Save it as bnb.js.
 
-```
+```javascript
 const puppeteer = require("puppeteer");
 (async () => {
   let url = "https://www.airbnb.com/s/homes?refinement_paths%5B%5D=%2Fhomes&search_type=section_navigation&property_type_id%5B%5D=8";
@@ -330,7 +348,3 @@ You should be able to see a JSON object printed on the console.
 ## Summary
 
 To get more detailed information, take a look at the official [Puppeteer documentation](https://pptr.dev/).
-
-
-
-
