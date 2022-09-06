@@ -111,22 +111,26 @@ const browser = await puppeteer.launch();
 Note that by default, the browser is launched in the headless mode. If there is an explicit need for a user interface, the above line can be modified to include an object as a parameter. 
 
 ```javascript
-const browser = await puppeteer.launch({headless:false}); // default is true```
+const browser = await puppeteer.launch({headless:false}); // default is true
+```
 
 The next step would be to open a page:
 
 ```javascript
-const page = await browser.newPage();```
+const page = await browser.newPage();
+```
 
 Now that a page or in other words, a tab, is available, any website can be loaded by simply calling the goto() function:
 
 ```javascript
-await page.goto('https://oxylabs.io/');```
+await page.goto('https://oxylabs.io/');
+```
 
 Once the page is loaded, the DOM elements, as well the rendered page is available. This can be verified by taking a quick screenshot:
 
 ```javascript
-await page.screenshot({path: 'oxylabs_1080.png'})```
+await page.screenshot({path: 'oxylabs_1080.png'})
+```
 
 This, however, will create only an 800×600 pixel image. The reason is that Puppeteer sets an initial page size to 800×600px. This can be changed by setting the viewport, before taking the screenshot.
 
@@ -140,7 +144,8 @@ This, however, will create only an 800×600 pixel image. The reason is that Pupp
 Finally, remember to close the browser:
 
 ```javascript
-await browser.close();```
+await browser.close();
+```
 
 Putting it altogether, here is the complete script. 
 
@@ -168,7 +173,8 @@ This should create a new file oxylabs_1080.png in the same directory.
 **Bonus tip:** If you need a PDF, you can use the pdf() function:
 
 ```javascript
-await page.pdf({path: 'oxylabs.pdf', format: 'A4'});``` 
+await page.pdf({path: 'oxylabs.pdf', format: 'A4'});
+``` 
 
 ## Scraping an element from a page
 
@@ -181,7 +187,8 @@ Once the page is loaded, right-click the heading of the page, and select Inspect
 Now, go to the Console tab in the developer toolbox and write in this line:
 
 ```javascript
-document.querySelector('#firstHeading')```
+document.querySelector('#firstHeading')
+```
 
 You will immediately see that our desired tag is extracted.
 
@@ -191,7 +198,8 @@ You will immediately see that our desired tag is extracted.
 This returns one element from the page. For this particular element, all we need is text. Text can be easily extracted with this line of code:
 
 ```javascript
-document.querySelector('#firstHeading').textContent```
+document.querySelector('#firstHeading').textContent
+```
 
 The text can now be returned using the return keyword. The next step is to surround this in the evaluate method. This will ensure that this querySelector can be run. 
 
@@ -226,17 +234,20 @@ Extracting multiple elements would involve three steps:
 1. Use of querySelectorAll to get all elements matching the selector:
 
 ```javascript
-headings_elements = document.querySelectorAll("h2 .mw-headline");```
+headings_elements = document.querySelectorAll("h2 .mw-headline");
+```
 
 2. create an array, as heading_elements is of type NodeList. 
 
 ```javascript
-headings_array = Array.from(headings_elements);```
+headings_array = Array.from(headings_elements);
+```
 
 3. Call the map() function can be called to process each element in the array and return it.
 
 ```javascript
-return headings_array.map(heading => heading.textContent);```
+return headings_array.map(heading => heading.textContent);
+```
 
 This of course needs to be surrounded by page.evaluate() function. Putting everything together, this is the complete script. You can save this as wiki_toc.js:
 
@@ -278,10 +289,10 @@ This section will explain how a typical listing page can be scraped to get a JSO
 The example that we will take is an Airbnb. Apply some filters so that you reach a page similar to the one in the screenprint. In this particular example, we will be scraping [this Airbnb page](https://www.airbnb.com/s/homes?refinement_paths%5B%5D=%2Fhomes&amp;search_type=section_navigation&amp;property_type_id%5B%5D=8) that lists 20 hotels. To scrape all 20 hotels, the first step is to identify the selector for each hotel section.
 
 ```javascript
-root = Array.from(document.querySelectorAll("#FMP-target [itemprop='itemListElement']"));```
+root = Array.from(document.querySelectorAll("#FMP-target [itemprop='itemListElement']"));
+```
 
 This returns a NodeList of length 20 and stores in the variable root. Note that so far, text or any attribute has not been extracted. All we have is an array  of elements. This will be done in the map() function.
-
 
 ```javascript
 hotels = root.map(hotel => ({ 
@@ -292,14 +303,16 @@ hotels = root.map(hotel => ({
 The URL of the photo of the hotel can be extracted with a code like this:
 
 ```javascript
-hotel.querySelector("img").getAttribute("src")```
+hotel.querySelector("img").getAttribute("src")
+```
 
 Getting the name of the hotel is a little trickier. The classes used on this page are some random words like _krjbj and _mvzr1f2. These class names appear to be generated dynamically and may change later on. It is better to have selectors which do not rely on these class names. 
 
 The hotel name can be extracted by combining parentElement and nextElementSibling selectors:
 
 ```javascript
-hotel.querySelector('ol').parentElement.nextElementSibling.textContent```
+hotel.querySelector('ol').parentElement.nextElementSibling.textContent
+```
 
 The most important concept to understand here is that we are concatenating querySelectors. Effectively, the first hotel name is being extracted with this line of code:
 
@@ -312,9 +325,9 @@ Finally, we can create an object containing both of these values. The syntax to 
 
 ```javascript
 Hotel = {
-        Name: 'x',
-        Photo: 'y'
-      }
+    Name: 'x',
+    Photo: 'y'
+}
 ```
 
 Putting everything together, here is the final script. Save it as bnb.js.
