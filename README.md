@@ -38,6 +38,7 @@ Pyppeteer Example:
 ```python
 import asyncio
 import pyppeteer
+
 async def main():
     browser = await pyppeteer.launch()
     page = await browser.newPage()
@@ -317,7 +318,8 @@ hotel.querySelector('ol').parentElement.nextElementSibling.textContent
 The most important concept to understand here is that we are concatenating querySelectors. Effectively, the first hotel name is being extracted with this line of code:
 
 ```javascript
-document.querySelectorAll("#FMP-target [itemprop='itemListElement']")[0].querySelector('ol').parentElement.nextElementSibling.textContent```
+document.querySelectorAll("#FMP-target [itemprop='itemListElement']")[0].querySelector('ol').parentElement.nextElementSibling.textContent
+```
 
 ![OWJiMjQ4OGItM2E4Yy00ZWFmLWE2NWItOTJlMmY1NDBkNjFm_puppeteer-tutorial2](https://user-images.githubusercontent.com/110830803/183445109-2d30173b-eb31-4f1b-8c60-a313ea7a9b1e.jpg)
 
