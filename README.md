@@ -1,9 +1,9 @@
 # Puppeteer Tutorial: Scraping With a Headless Browser
 ## Table of Contents 
 
-[![Oxylabs promo code](https://raw.githubusercontent.com/oxylabs/product-integrations/refs/heads/master/Affiliate-Universal-1090x275.png)](https://oxylabs.io/pages/gitoxy?utm_source=877&utm_medium=affiliate&groupid=877&utm_content=puppeteer-tutorial-github&transaction_id=102f49063ab94276ae8f116d224b67)
+[![Oxylabs promo code](https://raw.githubusercontent.com/oxylabs/product-integrations/refs/heads/master/Affiliate-Universal-1090x275.png)](https://oxylabs.io/pages/gitoxy?utm_source=github&utm_medium=referral&utm_content=puppeteer-tutorial&utm_campaign=banner&groupid=877)
 
-<a href="https://oxylabs.io"><img src="https://img.shields.io/badge/🚀_Get_Started-FF6B35?style=for-the-badge" alt="Get started"></a>
+<a href="https://oxylabs.io/?utm_source=github&utm_medium=referral&utm_content=puppeteer-tutorial&utm_campaign=banner&groupid=877"><img src="https://img.shields.io/badge/🚀_Get_Started-FF6B35?style=for-the-badge" alt="Get started"></a>
 <a href="https://developers.oxylabs.io"><img src="https://img.shields.io/badge/📚_Documentation-4A90E2?style=for-the-badge" alt="Documentation"></a>
 <a href="https://dashboard.oxylabs.io"><img src="https://img.shields.io/badge/📊_Dashboard-2EA44F?style=for-the-badge" alt="Dashboard"></a>
 <a href="https://discord.gg/Pds3gBmKMH"><img src="https://img.shields.io/badge/💬_Discord-5865F2?style=for-the-badge" alt="Discord"></a>
@@ -34,7 +34,7 @@ const puppeteer = require('puppeteer');
 async function main() {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.goto('https://oxylabs.io/');
+  await page.goto('https://oxylabs.io/?utm_source=github&utm_medium=referral&utm_content=puppeteer-tutorial&groupid=877');
   await page.screenshot({'path': 'oxylabs_js.png'})
   await browser.close();
 }
@@ -49,7 +49,7 @@ import pyppeteer
 async def main():
     browser = await pyppeteer.launch()
     page = await browser.newPage()
-    await page.goto('https://oxylabs.io/')
+    await page.goto('https://oxylabs.io/?utm_source=github&utm_medium=referral&utm_content=puppeteer-tutorial&groupid=877')
     await page.screenshot({'path': 'oxylabs_python.png'})
     await browser.close()
 asyncio.get_event_loop().run_until_complete(main())
@@ -131,7 +131,7 @@ const page = await browser.newPage();
 Now that a page or in other words, a tab, is available, any website can be loaded by simply calling the goto() function:
 
 ```javascript
-await page.goto('https://oxylabs.io/');
+await page.goto('https://oxylabs.io/?utm_source=github&utm_medium=referral&utm_content=puppeteer-tutorial&groupid=877');
 ```
 
 Once the page is loaded, the DOM elements, as well the rendered page is available. This can be verified by taking a quick screenshot:
@@ -166,7 +166,7 @@ const puppeteer = require('puppeteer');
     width: 1920,
     height: 1080,
   });
-  await page.goto('https://oxylabs.io/');
+  await page.goto('https://oxylabs.io/?utm_source=github&utm_medium=referral&utm_content=puppeteer-tutorial&groupid=877');
   await page.screenshot({path: 'oxylabs_1080.png'})
   await browser.close();
 })();
